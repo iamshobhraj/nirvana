@@ -1,6 +1,12 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { getSong } from './api';
+
 export default function SearchBar() {
     const [searchInput, setSearchInput] = useState("");
+    useEffect(() => {
+        getSong(searchInput);
+
+    }, [searchInput])
     return (
         <div className="p-6">
             <div className="flex flex-row relative">
