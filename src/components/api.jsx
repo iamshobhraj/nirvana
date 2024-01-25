@@ -6,7 +6,7 @@ async function getSong(value) {
         const response = await axios.get(urrl);
         // const searchData = await response.json().then((data) => data.results);
         console.log(response.data.data.results);
-        return response.data.data.results[0].downloadUrl[4].link;
+        return response.data.data.results;
         
     }
     catch (error) {
