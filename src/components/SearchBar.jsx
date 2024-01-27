@@ -1,11 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { getSong } from './api';
 
-export default function SearchBar() {
+export default function SearchBar({genrSong}) {
     const [searchInput, setSearchInput] = useState("");
 
-    const handleSearch = () => {
-        getSong(searchInput);
+    const handleSearch = async () => {
+       const newSongs = await getSong(searchInput);
+       genrSong(newSongs);
+       console.log(newSongs);
     }
 
     return (
