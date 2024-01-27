@@ -6,7 +6,8 @@ export default function SearchBar({ genrSong }) {
 
   const handleSearch = async () => {
     const newSongs = await getSong(searchInput);
-    genrSong(newSongs);
+    const trimsong = newSongs.slice(0,4);
+    genrSong(trimsong);
     console.log(newSongs);
   };
 
