@@ -16,6 +16,7 @@ const SeekbarExample = ({ song, pause, resume, elapsedTime, audioRef }) => {
         seekbarRef.current.value = song.duration;
       }
     }
+    // audioRef.current.volume =
   }, [elapsedTime, isPlaying, song.duration]);
 
   const togli = () => {
@@ -57,7 +58,14 @@ const SeekbarExample = ({ song, pause, resume, elapsedTime, audioRef }) => {
           </button>
 
           <div>
-            volume bar
+            <input
+            type="range"
+            name="volumebar"
+            min="0"
+            max="10"
+            onChange={(event) => {audioRef.current.volume = (event.target.value/10)}}
+            className="w-32 h-1 z-40 rounded-lg accent-green-600 hover:cursor-pointer"
+          />
           </div>
           
       </div>

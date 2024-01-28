@@ -28,7 +28,7 @@ export default function SearchResults({ songs, play }) {
       </div>
       <div className="flex flex-col">
         <p className="font-bold text-xl text-left pb-5">Songs</p>
-        <div className="flex flex-col overflow-x-scroll max-h-48">
+        <div className="flex flex-col overflow-x-scroll no-scrollbar max-h-48">
           {songs.map((result, index) => (
             <div className="flex justify-start m-1" key={index}>
               <img
