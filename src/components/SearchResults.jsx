@@ -1,4 +1,4 @@
-export default function SearchResults({ songs, play, genrsong }) {
+export default function SearchResults({ songs, play }) {
   return (
     <div className="flex flex-col">
       <div className="mb-3 w-3/4 items-center justify-center">

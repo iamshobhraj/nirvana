@@ -1,12 +1,22 @@
-import React, { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-const SeekbarExample = ({ song, play, pause, resume }) => {
-  const [seekbarValue, setSeekbarValue] = useState(50);
+const SeekbarExample = ({ song, pause, resume, elapsedTime, audioRef }) => {
   const [isPlaying, setIsPlaying] = useState(true);
+  const seekbarRef = useRef(0);
 
-  const handleSeekbarChange = (event) => {
-    setSeekbarValue(event.target.value);
-  };
+  const seek = (value) => {
+    audioRef.current.currentTime = value;
+  }
+
+  useEffect(() => {
+    if (seekbarRef.current) {
+      seekbarRef.current.value = elapsedTime;
+      // Set seekbar value to song duration when song changes or starts playing
+      if (elapsedTime === 0 && isPlaying) {
+        seekbarRef.current.value = song.duration;
+      }
+    }
+  }, [elapsedTime, isPlaying, song.duration]);
 
   const togli = () => {
 
@@ -23,9 +33,9 @@ const SeekbarExample = ({ song, play, pause, resume }) => {
         name="seekbar"
         min="0"
         max={song.duration}
-        value={seekbarValue}
-        onChange={handleSeekbarChange}
-        className="w-full"
+        ref={seekbarRef}
+        onChange={event => seek(event.target.value)}
+        className="w-full h-1 z-40 rounded-lg accent-green-600 hover:cursor-pointer"
       />
       <div className="flex justify-between items-center p-2 rounded-xl bg-gradient-to-t from-stone-900 to-stone-600">
         <div className="flex">

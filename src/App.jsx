@@ -7,6 +7,7 @@ import SearchResults from "./components/SearchResults";
 function App() {
   const [songs, setSongs] = useState([]);
   const [currentSong, setCurrentSong] = useState(null);
+  const [elapsedTime, setElapsedTime] = useState(0);
   const audioRef = useRef(null);
 
   const genrSong = (value) => {
@@ -21,10 +22,15 @@ function App() {
 
     const audio = audioRef.current || new Audio();
     audio.src = value.downloadUrl[4].link;
+    audio.addEventListener('timeupdate', () => {
+      setElapsedTime(audio.currentTime);
+    })
     audio.play();
 
     audioRef.current = audio;
   };
+
+  
 
   const pause = () => {
     audioRef.current.pause()
@@ -42,7 +48,7 @@ function App() {
       ) : (
         <SearchResults songs={songs} play={play} genrsong={genrSong} />
       )}
-      {currentSong ? (<SeekbarExample song={currentSong} play={play} pause={pause} resume={resume} />) : (<div></div>)}
+      {currentSong ? (<SeekbarExample song={currentSong} play={play} pause={pause} resume={resume} elapsedTime={elapsedTime} audioRef={audioRef} />) : (<div></div>)}
       
     </>
   );
